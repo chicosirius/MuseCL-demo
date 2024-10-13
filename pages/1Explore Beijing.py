@@ -214,7 +214,7 @@ with col1:
         heatmap.add_to(m)
 
     # Display the map
-    map_data = st_folium(m, width=700, height=500)
+    map_data = st_folium(m, width=700, height=700)
 
 # Right column: display details when a point is clicked
 with col2:
