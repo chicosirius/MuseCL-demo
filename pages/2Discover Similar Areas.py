@@ -68,8 +68,7 @@ elif data_selection == 'None':
 if st.session_state['data_uploaded'] or data_selection == "Use built-in Beijing data":
     if st.button("Start Similarity Calculation") or st.session_state['similarity_calculated']:
 
-        with st.spinner("Please hold on for a moment while we calculate the similarity... 🚀"):
-            time.sleep(1)
+        st.spinner("Please hold on for a moment while we calculate the similarity... 🚀"):
 
         st.session_state['similarity_calculated'] = True  # 设置按钮状态为已计算
 
