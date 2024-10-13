@@ -1,7 +1,5 @@
 import streamlit as st
 import pandas as pd
-from mapboxgl.viz import *
-from mapboxgl.utils import create_color_stops
 import json
 
 # 设置页面配置
