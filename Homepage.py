@@ -50,7 +50,7 @@ To combine road network and square division strengths, hexagonal division emerge
 """)
 
 # Use st.image to display images
-st.image("pic/region_split.jpg", caption="Region Division Overview", width=700)
+st.image("pic/region_split.jpg", caption="Region Division Overview", use_column_width=0.5)
 
 st.write("""
 #### Urban multi-modal datas
@@ -69,7 +69,7 @@ Following data collection and preprocessing, the datasets for the three cities a
 """)
 
 # Use st.image to display images
-st.image("pic/dataset_statistics.jpg", caption="Dataset Statistics", width=700)
+st.image("pic/dataset_statistics.jpg", caption="Dataset Statistics", use_column_width=0.5)
 
 st.write("""
 #### Socio-economic indicators
