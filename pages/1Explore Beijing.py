@@ -152,7 +152,7 @@ beijing_points = {
                                 "pic/7230_116.3179,39.8392/01002200001309101439072695P.jpg",
                                 "pic/7230_116.3179,39.8392/09002200011601101247373347O.jpg",
                                 "pic/7230_116.3179,39.8392/09002200011601101249273657O.jpg"],
-                'poi_info': 'This area is a vibrant **cultural district** with a mix of **art galleries**, **theaters**, and **historical sites**. It’s a hub for artists and creatives, offering a blend of traditional and contemporary cultural experiences. 🎭🖼️'}
+                'poi_info': 'This area is a vibrant **cultural district** with a mix of **art galleries**, **theaters**, and **historical sites**. It’s a hub for artists and creatives, offering a blend of traditional and contemporary cultural experiences. 🎭🖼️'},
 }
 
 # Function to add markers
