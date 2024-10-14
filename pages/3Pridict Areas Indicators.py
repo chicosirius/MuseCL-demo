@@ -111,7 +111,7 @@ if st.session_state.ready_to_predict:
     if st.button("Start Predicting") or st.session_state.start_prediction:
         st.session_state.start_prediction = True
         with st.spinner("Crunching the numbers... please wait while we predict the future of your selected regions! ⏳"):
-            time.sleep(4)
+            time.sleep(2)
 
         # Read the corresponding data based on target_prediction
         if target_prediction == "Population Density":
@@ -147,15 +147,27 @@ if st.session_state.ready_to_predict:
             # Sample policy recommendations based on predictions
             if target_prediction == "Population Density":
                 recommendations = """
-                1. **Increase Public Transportation**: Improve public transit routes to accommodate increasing population density.
-                2. **Affordable Housing Initiatives**: Implement policies that encourage the development of affordable housing in densely populated areas.
-                3. **Green Spaces Development**: Create more parks and recreational areas to enhance the quality of life in crowded neighborhoods.
+                📊 **Population Density Analysis**:
+                Beijing's population density showcases a stark contrast between various districts. Areas such as Chaoyang and Haidian are hotspots with significant overcrowding, where urban life is bustling but infrastructure is struggling to keep pace. Such high-density zones bring challenges like traffic jams, increased pollution, and pressure on public services. 
+            
+                **Recommendations**:
+                1. **Expand Public Transportation**: Expand metro lines and bus routes to ensure seamless connectivity in high-density districts. This will not only reduce traffic congestion but also lower pollution levels by encouraging the use of public transit over private cars.
+                2. **Affordable Housing Initiatives**: Create policies to drive affordable housing developments in these high-density areas, ensuring that middle-to-low-income families can find suitable accommodation without moving to the city outskirts.
+                3. **Green Spaces and Recreational Areas**: Boost the development of parks, urban forests, and recreational spaces. This will help reduce the stress of crowded living conditions, offering residents a place to relax and enhancing their mental and physical well-being.
+                4. **Smart City Solutions**: Leverage technology with smart city infrastructure, such as AI-powered traffic management, energy-efficient street lighting, and digital waste monitoring systems, to streamline urban operations and improve residents' quality of life.
+                5. **Health and Wellness Programs**: Promote urban wellness initiatives by building community centers that offer health services, fitness programs, and mental health support to ease the pressures of high-density living.
                 """
             elif target_prediction == "Residential Density":
                 recommendations = """
-                1. **Zoning Adjustments**: Reassess zoning laws to allow for higher density developments in suitable areas.
-                2. **Community Services Expansion**: Expand community services like schools and hospitals in residentially dense areas.
-                3. **Infrastructure Improvements**: Invest in infrastructure improvements to support higher residential densities, including utilities and road networks.
+                🏘️ **Residential Density Analysis**:
+                Rapid residential development in certain districts has led to an influx of new residents, particularly in urban expansion zones. This growth strains essential services like healthcare, education, and infrastructure. As residential density increases, maintaining quality of life becomes a pressing issue.
+            
+                **Recommendations**:
+                1. **Zoning Reforms**: Conduct a comprehensive review of zoning laws to support vertical expansion and mixed-use developments. Strategically relaxing zoning restrictions will enable efficient land use and help meet the rising demand for housing.
+                2. **Community Services Expansion**: Prioritize the expansion of essential services, such as schools, hospitals, and public libraries, to keep pace with residential growth. This will ensure that residents in densely populated areas have access to quality education, healthcare, and community support.
+                3. **Infrastructure and Utilities Overhaul**: Strengthen water supply, waste management, and power distribution systems in high-density neighborhoods. Investing in modern infrastructure will support sustainable urban development and reduce the risk of service disruptions.
+                4. **Sustainable Development Practices**: Promote green building standards and sustainable architecture in new residential projects to reduce environmental impacts. Encourage developers to integrate solar panels, energy-efficient systems, and green roofs to contribute to a more sustainable urban ecosystem.
+                5. **Public Engagement and Education**: Run city-wide campaigns to inform residents about sustainable living practices—everything from recycling and water conservation to adopting energy-efficient habits. Engaging the public helps build a collaborative effort toward sustainable growth.
                 """
             else:
                 recommendations = "No specific recommendations available for the selected target."
