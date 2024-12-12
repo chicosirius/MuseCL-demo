@@ -5,17 +5,17 @@ from streamlit_folium import st_folium
 import random
 
 # 设置页面配置
-st.set_page_config(page_title="Explore Urban Data", page_icon="🌍", layout="wide")
+st.set_page_config(page_title="探索城市多模态数据", page_icon="🌍", layout="wide")
 
 # Customize the sidebar
 markdown = """
-*MuseCL: Predicting Urban Socioeconomic Indicators via Multi-Semantic Contrastive Learning.*
+*MuseCL: 通过多语义对比学习预测城市社会经济指标*
 
-Paper Link: <https://arxiv.org/abs/2407.09523>
+论文链接: <https://arxiv.org/abs/2407.09523>
 
-GitHub Repository: <https://github.com/XixianYong/MuseCL>
+GitHub 仓库: <https://github.com/XixianYong/MuseCL>
 """
-st.sidebar.title("About us")
+st.sidebar.title("关于我们")
 st.sidebar.info(markdown)
 logo = "logo.png"
 qr_code = "qr_code.jpg"
@@ -176,115 +176,114 @@ def generate_random_pois(n=200, lat_center=39.90, lon_center=116.40, lat_std=0.0
 if 'poi_categories' not in st.session_state:
     # Initialize POI data for different categories once
     st.session_state.poi_categories = {
-        "Restaurants": generate_random_pois(n=500),
-        "Entertainment": generate_random_pois(n=200),
-        "Cultural": generate_random_pois(n=80)
+        "餐馆": generate_random_pois(n=500),
+        "娱乐": generate_random_pois(n=200),
+        "文化": generate_random_pois(n=80)
     }
 
-# Page layout
-st.title("🗺️ Explore Beijing - Discover the Heart of China!")
+# 页面布局
+st.title("🗺️ 探索北京 - 发现中国的中心！")
 st.write("""
-Welcome to **Beijing**, the bustling capital of China, where ancient culture meets modern innovation!
+欢迎来到**北京**，中国繁华的首都，这里古老的文化与现代创新交相辉映！
 
-Here, you can explore different districts of this vibrant city through satellite views, street images, and key Points of Interest (POI). Whether it's historical sites, busy marketplaces, or quiet residential areas, each part of Beijing tells a unique story. Let’s embark on this journey! 🌏✨
+在这里，您可以通过卫星视图、街景图像和关键兴趣点（POI）探索这座充满活力的城市的不同区域。无论是历史遗址、繁忙的集市，还是宁静的住宅区，北京的每个部分都讲述着独特的故事。让我们开启这段旅程吧！🌏✨
 """)
 
-# Add guiding statements with emojis
+# 添加带有表情符号的引导语句
 st.markdown("""
-### How to explore the map? 🧭
-1. **Navigate the map**: Move around, zoom in, or zoom out to explore different areas of Beijing.
-2. **Click on a marker**: Select one of the marked points to uncover more about that specific area, from its satellite view to street-level insights.
-3. **Check the details**: After clicking a marker, information about that region will appear to the right. You’ll see satellite views, street photos, and local hotspots or historical landmarks.
+### 如何探索地图？🧭
+1. **浏览地图**：移动、放大或缩小，探索北京的不同区域。
+2. **点击标记点**：选择一个标记点，了解该区域的更多信息，从卫星视图到街景视角。
+3. **查看详情**：点击标记点后，该区域的信息将显示在右侧。您将看到卫星视图、街景照片以及当地热点或历史地标。
 
-🔍 **Tip**: Want to learn more about the heart of Beijing or explore hidden gems? Just click on any marker and let the city’s charm reveal itself!
+🔍 **提示**：想了解北京的中心地带或探索隐藏的宝藏吗？只需点击任意标记点，让这座城市的魅力展现出来！
 """)
 
-# Add a brief intro about Beijing’s culture and landmarks
+# 添加关于北京文化和地标的简短介绍
 st.write("""
-### A Glimpse of Beijing’s Magic 🏛️
-Beijing isn’t just the political center of China, it’s also home to rich historical landmarks such as the **Forbidden City**, **Tiananmen Square**, and **the Summer Palace**. 
-Beyond these, the city is brimming with traditional hutongs, modern skyscrapers, and cultural heritage, creating a fascinating blend of old and new.
-Each corner of the city holds something special, whether it’s a bustling market, serene park, or quiet residential alley.
+### 一瞥北京的魔力 🏛️
+北京不仅是中国的政治中心，它还是拥有丰富历史地标的城市，如**故宫**、**天安门广场**和**颐和园**。
+除此之外，城市中还遍布着传统的胡同、现代的摩天大楼以及文化遗产，形成了新旧交融的迷人景象。
+城市的每个角落都有其特别之处，无论是熙熙攘攘的集市、宁静的公园，还是安静的居民小巷。
 
-Now, let’s explore the diverse regions of Beijing! 🌆
+现在，让我们探索北京的多样化区域吧！🌆
 """)
 
-# Create layout with two columns
+# 创建包含两列的布局
 col1, col2 = st.columns([2, 1])
 
-# Left column: display the map
+# 左列：显示地图
 with col1:
-    # Initialize map centered on Beijing
+    # 初始化地图，中心点为北京
     m = folium.Map(location=[39.9042, 116.4074], zoom_start=11)
 
-    # Add markers for predefined points
+    # 添加预定义点的标记
     add_markers_to_map(m, beijing_points)
-    # Add custom points from session state
+    # 添加会话状态中的自定义点
     for custom_point in st.session_state.custom_points:
-        folium.Marker(location=custom_point, popup="Custom Point", icon=folium.Icon(color='red')).add_to(m)
+        folium.Marker(location=custom_point, popup="自定义点", icon=folium.Icon(color='red')).add_to(m)
 
-
-    # Add markers for each point
+    # 为每个点添加标记
     for point_name, point_info in beijing_points.items():
         folium.Marker(location=point_info['coords'], popup=point_name).add_to(m)
 
-    # User-added point feature
-    user_lat = st.number_input("Enter Latitude:", min_value=39.0, max_value=41.0, value=39.9)
-    user_lng = st.number_input("Enter Longitude:", min_value=115.0, max_value=117.0, value=116.4)
+    # 用户添加点功能
+    user_lat = st.number_input("输入纬度：", min_value=39.0, max_value=41.0, value=39.9)
+    user_lng = st.number_input("输入经度：", min_value=115.0, max_value=117.0, value=116.4)
     
-    if st.button("Add Custom Point"):
-        # Append the custom point to session state
+    if st.button("添加自定义点"):
+        # 将自定义点添加到会话状态中
         st.session_state.custom_points.append([user_lat, user_lng])
-        st.success(f"Added point at ({user_lat}, {user_lng})")
+        st.success(f"已添加点 ({user_lat}, {user_lng})")
 
-    # Add POI category filter
-    poi_filter = st.selectbox("Filter POI Category:", ["None", "Restaurants", "Entertainment", "Cultural"])
+    # 添加兴趣点类别过滤器
+    poi_filter = st.selectbox("筛选兴趣点类别：", ["无", "餐馆", "娱乐", "文化"])
     
-    # Add 100 random POIs as a heatmap based on the category selection
-    if poi_filter != "None":
+    # 根据选择的类别添加100个随机兴趣点的热力图
+    if poi_filter != "无":
         poi_points = st.session_state.poi_categories[poi_filter]
         heatmap = HeatMap(poi_points, radius=15, blur=10)
         heatmap.add_to(m)
 
-    # Display the map
+    # 显示地图
     map_data = st_folium(m, width=700, height=700)
 
-# Right column: display details when a point is clicked
+# 右列：显示点击点的详细信息
 with col2:
-    st.write("### Dive into the Details of the Area 🎯")
+    st.write("### 深入了解该区域 🎯")
     
-    # Show data when a point is clicked
+    # 当点击标记点时显示数据
     if map_data['last_object_clicked']:
         clicked_coords = map_data['last_object_clicked']['lat'], map_data['last_object_clicked']['lng']
         
-        # Find and display the clicked point's information
+        # 查找并显示点击点的信息
         for point_name, point_info in beijing_points.items():
             if clicked_coords == tuple(point_info['coords']):
-                st.subheader(f"Discover {point_name} 🌟")
+                st.subheader(f"探索 {point_name} 🌟")
                 
-                # Display POI information first
-                st.write(f"**Points of Interest**: {point_info['poi_info']} 🏙️")
+                # 首先显示兴趣点信息
+                st.write(f"**兴趣点**: {point_info['poi_info']} 🏙️")
                 
-                # Display remote sensing image and street view images with same size
-                st.write("**Remote Sensing Image 🛰️:**")
-                st.image(point_info['remote_img'], caption="Satellite Image", use_column_width=True)
+                # 显示同尺寸的遥感图像和街景图像
+                st.write("**遥感图像 🛰️:**")
+                st.image(point_info['remote_img'], caption="卫星图像", use_column_width=True)
 
-                st.write("**Street Views 🚶:**")
-                # Check if there are multiple street view images
+                st.write("**街景图 🚶:**")
+                # 检查是否有多张街景图片
                 if len(point_info['street_imgs']) > 1:
-                    # Use slider to browse through street views if more than one image is available
-                    street_img_idx = st.slider("Street View Image Index", 0, len(point_info['street_imgs']) - 1, 0)
-                    st.image(point_info['street_imgs'][street_img_idx], caption="Street View", use_column_width=True)
+                    # 如果有多张图像，则使用滑块浏览
+                    street_img_idx = st.slider("街景图像索引", 0, len(point_info['street_imgs']) - 1, 0)
+                    st.image(point_info['street_imgs'][street_img_idx], caption="街景图像", use_column_width=True)
                 else:
-                    # If only one image is available, display it directly
-                    st.image(point_info['street_imgs'][0], caption="Street View", use_column_width=True)
+                    # 如果只有一张图像，直接显示
+                    st.image(point_info['street_imgs'][0], caption="街景图像", use_column_width=True)
 
     else:
-        st.write("Click on a marker to reveal the area’s details on the right ⬅️.")
+        st.write("点击标记点以查看该区域的详细信息 ⬅️。")
 
-# Add a footer or final message
+# 添加页脚或最后的消息
 st.write("""
-#### Ready to uncover more? 🧳
-Whether you’re a history enthusiast, a city explorer, or simply curious, Beijing has something for everyone! 
-Keep exploring the map, click on different points, and immerse yourself in this fascinating city’s different layers.
+#### 准备好揭开更多的秘密了吗？🧳
+无论您是历史爱好者、城市探险家，还是只是好奇，北京总有一份惊喜等待着您！ 
+继续探索地图，点击不同的点，沉浸在这座迷人城市的不同层次中吧。
 """)
